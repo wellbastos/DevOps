@@ -7,7 +7,11 @@ app = Flask(__name__)
 # default route
 @app.route('/')
 def index():
-    return 'Hello World Teste Segunda-Feira!'
+    return 'DevOps'
+
+@app.route('/integrantes')
+def integrantes():
+    return jsonify(['Flavio - 333565', 'Pedro - 334109', 'Rafael - 333829', 'Rodrigo - 333241', 'Wellington - 333878'])
 
 # function for responses
 def results():
