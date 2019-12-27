@@ -1,0 +1,32 @@
+node(){
+    stage('Clean'){
+        deleteDir()
+        sh 'ls -la'
+    }
+
+    stage('Show Existing Docker Containers and Images'){    
+        sh 'docker ps -a'
+        sh 'docker image ls'
+    }
+
+    stage('Remove Running Container'){
+        sh 'docker ps -f name=python-devops -q | xargs --no-run-if-empty docker container stop'
+        sh 'docker container ls -a -fname=python-devops -q | xargs -r docker container rm'
+    }
+    
+    stage('Fetch') {
+        git(url: 'https://github.com/wellbastos/DevOps.git', branch: 'master')
+    }
+    
+    stage('Show Artifact'){
+        sh 'ls -la'
+    }
+
+    stage('Docker Build') {
+        sh 'docker build -t wellbastos/python-devops:$BUILD_NUMBER .'
+    }
+    
+    stage('Docker run') {
+        sh 'docker  run --name python-devops -d -p 5000:5000 wellbastos/python-devops:$BUILD_NUMBER'
+    }
+}
