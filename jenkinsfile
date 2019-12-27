@@ -29,4 +29,16 @@ node(){
     stage('Docker run') {
         sh 'docker  run --name python-devops -d -p 5000:5000 wellbastos/python-devops:$BUILD_NUMBER'
     }
+    
+    stage('Show Container') {
+        sh 'docker ps'
+    }
+    
+    stage('Show Images') {
+        sh 'docker image ls'
+    }
+    
+    stage('Inspect Running Container') {
+        sh 'docker inspect python-devops | head -n 30'
+    }
 }
