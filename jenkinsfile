@@ -41,4 +41,12 @@ node(){
     stage('Inspect Running Container') {
         sh 'docker inspect python-devops | head -n 30'
     }
+    
+    stage('Accessing /') {
+        sh 'curl localhost:5000/'
+    }
+    
+        stage('Accessing /integrantes') {
+        sh 'curl localhost:5000/integrantes'
+    }
 }
